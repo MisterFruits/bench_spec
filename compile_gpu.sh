@@ -23,8 +23,8 @@ cd $compil_dir
 #####################################
 
 #./configure --prefix=$PWD --build=ppc64
-export CUDA_LIB="/usr/local/cuda-7.5/lib64"
-export CUDA_INC="/usr/local/cuda-7.5/include"
+export CUDA_LIB="$CUDAROOT/lib64"
+export CUDA_INC="$CUDAROOT/include"
 ./configure --prefix=$PWD --with-cuda=cuda5 
 
 cd $testcase_dir

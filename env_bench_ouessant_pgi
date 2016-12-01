@@ -3,7 +3,7 @@
 LANG=C
 
 module purge
-module load PrgEnv-pgi
+module load pgi cuda ompi
 
 export FC=`which pgfortran`  
 export MPIFC=`which mpif90`
