@@ -1,0 +1,16 @@
+#!/bin/bash
+#BSUB -J Specfem_3D
+#BSUB -n 6,6
+#BSUB -W 06:00
+#BSUB -o %J.out
+##BSUB -e %J.err
+#BSUB -network mode=US
+
+ulimit -s unlimited
+source env_bench
+cd $install_dir
+cd EXAMPLES/small_benchmark_run_to_test_more_complex_Earth/ 
+
+./run_mesher_solver.bash
+
+
