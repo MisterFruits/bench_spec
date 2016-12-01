@@ -1,0 +1,25 @@
+#!/bin/bash
+
+LANG=C
+
+module purge
+module		 load at/9.0-0
+module		 load ompi/1.10.2/gcc
+#module       load gcc5+pe
+#export LD_LIBRARY_PATH=$LD_RUN_PATH:$LD_LIBRARY_PATH
+
+export FC=`which gfortran`  
+export MPIFC=`which mpif90`
+export CC=`which gcc` 
+export MPICC=`which mpicc`
+
+GCC_OPTS="-O2 -g -mcmodel=medium -fopenmp -cpp"
+GFORTRAN_OPTS="-L$LD_RUN_PATH -DUSE_OPENMP"
+export CFLAGS="$GCC_OPTS"
+export FFLAGS="$GCC_OPTS $GFORTRAN_OPTS"
+
+export install_name=gxx_ompi-`date +%Y`-`date +%b`-`date +%d`
+export SCRATCHDIR=$HOME/scratch
+echo $install_name
+
+

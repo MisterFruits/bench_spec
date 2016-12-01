@@ -1,0 +1,21 @@
+#!/bin/bash
+
+LANG=C
+
+export compiler="intel"
+export compiler_version="16.0.1"
+
+export mpi_lib="bullxmpi"
+export mpi_lib_version="1.2.8.4-mxm" 
+
+
+module purge
+
+module load $compiler/$compiler_version
+module load $mpi_lib/$mpi_lib_version
+
+export install_dir=${compiler}_${compiler_version}-${mpi_lib}_${mpi_lib_version}-`date +%Y`-`date +%b`-`date +%d`
+
+echo $install_dir
+
+

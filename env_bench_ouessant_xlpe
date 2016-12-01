@@ -1,0 +1,27 @@
+#!/bin/bash
+
+LANG=C
+
+module purge
+module		 load xlc/13.1.4
+module		 load xlf/15.1.4
+module		 load xlmass 
+module		 load xlsmp 
+module		 load perte/2.3.0.2/xl
+
+
+export FC="xlf90_r"  
+export MPIFC="mpif90" 
+export CC="xlc_r" 
+export MPICC="mpicc"
+
+XL_OPTS="-qsmp=omp -O2 -g -qfullpath -qstrict -qhalt=w -q64"
+XLF_OPTS="-mcmodel=medium -qfree=f90 -qsuffix=cpp=f90 -WF,-DUSE_OPENMP"
+export CFLAGS="$XL_OPTS"
+export FFLAGS="$XL_OPTS $XLF_OPTS"
+
+export install_name=xl_pe-`date +%Y`-`date +%b`-`date +%d`
+export SCRATCHDIR=$HOME/scratch
+echo $install_name
+
+

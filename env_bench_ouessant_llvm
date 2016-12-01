@@ -1,0 +1,30 @@
+#!/bin/bash
+
+LANG=C
+
+module purge
+module		 load llvm/clang
+module		 load llvm/xlflang
+#module		 load xlmass 
+#module		 load xlsmp 
+module		 load perte/2.3.0.2/llvm
+
+
+export FC="xlflang"  
+export MPIFC="mpif90 -compiler xlflang" 
+export CC="clang" 
+export MPICC="mpicc -compiler clang"
+
+XL_OPTS="-qsmp=omp -O2 -qfullpath -qstrict -qhalt=w -qfree=f90 -qsuffix=cpp=f90 -q64 -mcmodel=medium"
+XLF_OPTS="-WF,-DUSE_OPENMP"
+GCC_OPTS="-O2 -g -mcmodel=medium -fopenmp -cpp"
+export CFLAGS="$GCC_OPTS"
+export FFLAGS="$XL_OPTS $XLF_OPTS"
+
+export install_name=llvm_pe-`date +%Y`-`date +%b`-`date +%d`
+export SCRATCHDIR=$HOME/scratch
+echo $install_name
+
+
+
+

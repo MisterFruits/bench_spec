@@ -1,0 +1,25 @@
+#!/bin/bash
+
+LANG=C
+
+module purge
+module load PrgEnv-pgi
+
+export FC=`which pgfortran`  
+export MPIFC=`which mpif90`
+export OMPI_FC=$FC
+export CC=`which pgcc` 
+export CPP="pgcc -E"
+export OMPI_CC=$CC
+export MPICC=`which mpicc`
+
+GCC_OPTS="-fast -Minfo=all -g -mp"
+GFORTRAN_OPTS="-DUSE_OPENMP -Mpreprocess"
+export CFLAGS="$GCC_OPTS"
+export FFLAGS="$GCC_OPTS $GFORTRAN_OPTS"
+
+export install_name=pgxx_ompi-`date +%Y`-`date +%b`-`date +%d`
+export SCRATCHDIR=$HOME/scratch
+echo $install_name
+
+
