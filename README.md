@@ -45,18 +45,19 @@ export CUDA_INC="$CUDAROOT/include"
 ## Compile specfem
 
 As arrays are staticaly declared, you will need to compile specfem once for each
-test case.
+test case with the right `Par_file`
 On some environement, depending on MPI configuration you will need to replace
 `use mpi` statement with `include mpif.h`, use the script and prodedure commented
 below.
 
-First you will have to configure. Note that **you will have to add the following
-arguments**:`--build=ppc64 --with-cuda=cuda5` for an OpenPower & GPU plateform
-and ``
+First you will have to configure.
 
+**On GPU platform** you will have to add the following arguments to the
+configure:`--build=ppc64 --with-cuda=cuda5`.
 
 ```shell
 cp -r $HOME/specfem3d_globe specfem_compil_${test_case_id}
+cp test_case_${test_case_id}/DATA/Par_file specfem_compil_${test_case_id}/DATA/
 
 cd specfem_compil_${test_case_id}
 
@@ -68,6 +69,27 @@ cd specfem_compil_${test_case_id}
 
 ./configure --prefix=$PWD
 ```
+
+**On Xeon Phi**, since support is recent you should replace the following variables
+values in the generated Makefile:
+
+```Makefile
+FCFLAGS = -g -O3 -qopenmp -xMIC-AVX512 -DUSE_FP32 -DOPT_STREAMS -align array64byte  -fp-model fast=2 -traceback -mcmodel=large
+FCFLAGS_f90 = -mod ./obj -I./obj -I.  -I. -I${SETUP} -xMIC-AVX512
+CPPFLAGS = -I${SETUP}  -DFORCE_VECTORIZATION  -xMIC-AVX512
+```
+
+Finally compile with make:
+```shell
+make clean
+make all
+```
+
+## Launch specfem
+
+
+
+
 
 
 
