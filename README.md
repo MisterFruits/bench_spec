@@ -1,8 +1,6 @@
-Specfem 3D globe -- Bench readme
-================================
+# Specfem 3D globe -- Bench readme
 
-Get the source
-**************
+## Get the source
 
 Clone the repository in a location of your choice, let's say $HOME.
 
@@ -11,8 +9,7 @@ cd $HOME
 git clone https://github.com/geodynamics/specfem3d_globe.git specfem3d_globe
 ```
 
-Load the environment
-********************
+## Load the environment
 
 You will need a fortran and a C compiler and a MPI library.
 The following variables are relevent to compile the code:
@@ -45,8 +42,7 @@ export CUDA_LIB="$CUDAROOT/lib64"
 export CUDA_INC="$CUDAROOT/include"
 ```
 
-Compile specfem
-***************
+## Compile specfem
 
 As arrays are staticaly declared, you will need to compile specfem once for each
 test case.
