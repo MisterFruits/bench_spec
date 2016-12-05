@@ -1,5 +1,7 @@
 # Specfem 3D globe -- Bench readme
 
+Note that this guide is still a work in progress and is currently being reviewed.
+
 ## Get the source
 
 Clone the repository in a location of your choice, let's say $HOME.
