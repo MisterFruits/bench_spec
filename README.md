@@ -107,9 +107,18 @@ ln -s $HOME/specfem3d_globe/DATA/topo_bathy
 
 ln -s $HOME/specfem_compil_${test_case_id}/bin
 
-sbatch -J specfem_mic -N 1 --ntasks=24 --cpus-per-task=2 -t 01:00:0 --mem=150GB run_mesher_solver.bash
-
+sbatch -J specfem -N 1 --ntasks=24 --cpus-per-task=2 -t 01:00:0 --mem=150GB run_mesher_solver.bash
 ```
+
+## Gather results
+
+The relevant metric for this benchmark is time for the solver. Using slurm, it is
+easy to gather as each `mpirun` or `srun` is interpreted as a step wich is already
+timed. So the command line `sacct -j <job_id>` allows you to catch the metric.
+
+Otherwise edit the `run_mesher_solver.bash` script and add the time command befor the
+call to the solver.
+
 
 
 
