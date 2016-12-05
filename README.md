@@ -6,7 +6,13 @@ Clone the repository in a location of your choice, let's say $HOME.
 
 ```shell
 cd $HOME
-git clone https://github.com/geodynamics/specfem3d_globe.git specfem3d_globe
+git clone https://github.com/geodynamics/specfem3d_globe.git
+```
+
+Also get the test case from git (in you $HOME again):
+```shell
+cd $HOME
+git clone https://github.com/MisterFruits/bench_spec
 ```
 
 ## Load the environment
@@ -57,7 +63,7 @@ configure:`--build=ppc64 --with-cuda=cuda5`.
 
 ```shell
 cp -r $HOME/specfem3d_globe specfem_compil_${test_case_id}
-cp test_case_${test_case_id}/DATA/Par_file specfem_compil_${test_case_id}/DATA/
+cp $HOME/bench_spec/test_case_${test_case_id}/DATA/Par_file specfem_compil_${test_case_id}/DATA/
 
 cd specfem_compil_${test_case_id}
 
@@ -87,6 +93,21 @@ make all
 
 ## Launch specfem
 
+The launch procedure is simplified by the `run_mesher_solver.bash` script included
+with tests cases. You just have to simlink some parameters file and binaries before launching it:
+
+```
+cd $HOME/bench_spec/test_case_${test_case_id}/DATA
+ln -s $HOME/specfem3d_globe/DATA/crust2.0
+ln -s $HOME/specfem3d_globe/DATA/s362ani
+ln -s $HOME/specfem3d_globe/DATA/QRFSI12
+ln -s $HOME/specfem3d_globe/DATA/topo_bathy
+
+ln -s $HOME/specfem_compil_${test_case_id}/bin
+
+sbatch -J specfem_mic -N 1 --ntasks=24 --cpus-per-task=2 -t 01:00:0 --mem=150GB run_mesher_solver.bash
+
+```
 
 
 
